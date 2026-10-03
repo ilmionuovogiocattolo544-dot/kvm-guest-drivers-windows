@@ -16,19 +16,20 @@ jobs:
       - name: Build viogpu
         shell: cmd
         run: |
-          set BUILD_ARCH=amd64
           msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln || msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 virtio-win.sln
 
-      - name: Search drivers
+      - name: Search all generated files
         shell: powershell
         run: |
-          Get-ChildItem -Recurse -Include viogpu.inf,viogpu.sys,viogpu.cat
+          Get-ChildItem -Recurse -Filter "*.inf" | Select-Object FullName
+          Get-ChildItem -Recurse -Filter "*.sys" | Select-Object FullName
+          Get-ChildItem -Recurse -Filter "*.cat" | Select-Object FullName
 
       - name: Upload drivers
         uses: actions/upload-artifact@v4
         with:
           name: viogpu-driver
           path: |
-            **/viogpu.inf
-            **/viogpu.sys
-            **/viogpu.cat
+            **/*.inf
+            **/*.sys
+            **/*.cat
