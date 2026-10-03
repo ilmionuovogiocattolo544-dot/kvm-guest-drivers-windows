@@ -44,11 +44,11 @@ jobs:
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpusc\viogpusc.vcxproj
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpuap\viogpuap.vcxproj
 
-    - name: Collect all compiled binaries and infs
+    - name: Collect all compiled binaries and infs (including viogpudo)
       shell: powershell
       run: |
         New-Item -ItemType Directory -Force -Path .\final-output
-        Get-ChildItem -Path "." -Recurse -Include "*.sys","*.inf","*.cat","*.dll" | Where-Object { $_.FullName -notlike "*\.git\*" -and $_.FullName -match "viogpu" } | ForEach-Object {
+        Get-ChildItem -Path "." -Recurse -Include "*.sys","*.inf","*.cat","*.dll" | Where-Object { $_.FullName -notlike "*\.git\*" -and ($_.FullName -match "viogpu" -or $_.FullName -match "viogpudo") } | ForEach-Object {
             Write-Host "Copying: $($_.FullName)"
             Copy-Item $_.FullName -Destination .\final-output -Force
         }
