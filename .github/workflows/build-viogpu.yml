@@ -19,7 +19,6 @@ jobs:
         Get-ChildItem -Recurse -Filter "*.vcxproj" | ForEach-Object {
             $content = Get-Content $_.FullName -Raw
             if ($content -match '<RunInfVerif>') {
-                Write-Host "Cleaning InfVerif from $($_.Name)"
                 $cleaned = [System.Text.RegularExpressions.Regex]::Replace($content, '<RunInfVerif>.*?</RunInfVerif>', '', 'Singleline')
                 $cleaned = [System.Text.RegularExpressions.Regex]::Replace($cleaned, '<RunInfVerif\s*/>', '')
                 Set-Content -Path $_.FullName -Value $cleaned -NoNewline
@@ -28,7 +27,6 @@ jobs:
         Get-ChildItem -Recurse -Filter "*.props" | ForEach-Object {
             $content = Get-Content $_.FullName -Raw
             if ($content -match '<RunInfVerif>') {
-                Write-Host "Cleaning InfVerif from $($_.Name)"
                 $cleaned = [System.Text.RegularExpressions.Regex]::Replace($content, '<RunInfVerif>.*?</RunInfVerif>', '', 'Singleline')
                 $cleaned = [System.Text.RegularExpressions.Regex]::Replace($cleaned, '<RunInfVerif\s*/>', '')
                 Set-Content -Path $_.FullName -Value $cleaned -NoNewline
@@ -38,19 +36,17 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v2
 
-    - name: Build all viogpu components
+    - name: Build viogpu solution/projects
       shell: cmd
       run: |
-        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu\viogpu.vcxproj
-        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpures\viogpures.vcxproj
-        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpusc\viogpusc.vcxproj
-        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpuap\viogpuap.vcxproj
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln
 
-    - name: Collect build outputs recursively
+    - name: Collect all compiled binaries and infs
       shell: powershell
       run: |
         New-Item -ItemType Directory -Force -Path .\final-output
-        Get-ChildItem -Path . -Recurse -Include "*.sys","*.inf","*.cat" | Where-Object { $_.FullName -notlike "*\.git\*" } | ForEach-Object {
+        # Copiamo tutto ciò che riguarda viogpu (sys, inf, cat, dll, etc.) ricorsivamente
+        Get-ChildItem -Path "." -Recurse -Filter "*viogpu*" | Where-Object { $_.FullName -notlike "*\.git\*" -and $_.PSIsContainer -eq $false } | ForEach-Object {
             Write-Host "Copying: $($_.FullName)"
             Copy-Item $_.FullName -Destination .\final-output -Force
         }
