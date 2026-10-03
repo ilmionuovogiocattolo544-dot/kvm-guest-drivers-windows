@@ -2,93 +2,52 @@ name: Build viogpu
 
 on:
   workflow_dispatch:
-  
+  push:
+    branches: [ master, main ]
 
 jobs:
   build:
-    runs-on:
-  workflow_dispatch: windows-2022
+    runs-on: windows-2022
+
     steps:
-      - name: Create InfVerif.dll stub
-        run: |
-          powershell -Command "
-            $paths = @(
-              'C:\Program Files (x86)\Windows Kits\10\build\x86\InfVerif.dll',
-              'C:\Program Files (x86)\Windows Kits\10\build\x64\InfVerif.dll',
-              'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\InfVerif.dll',
-              'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\InfVerif.dll'
-            );
-            foreach ($p in $paths) {
-                $dir = Split-Path $p -Parent;
-
-      - name: Create InfVerif.dll stub
-        run: |
-          powershell -Command "
-            $paths = @(
-              'C:\Program Files (x86)\Windows Kits\10\build\x86\InfVerif.dll',
-              'C:\Program Files (x86)\Windows Kits\10\build\x64\InfVerif.dll',
-              'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\InfVerif.dll',
-              'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\InfVerif.dll'
-            );
-            foreach ($p in $paths) {
-                $dir = Split-Path $p -Parent;
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
     - name: Create InfVerif.dll stub
+      shell: powershell
       run: |
-        powershell -Command "
-          $paths = @(
-            'C:\Program Files (x86)\Windows Kits\10\build\x86\InfVerif.dll',
-            'C:\Program Files (x86)\Windows Kits\10\build\x64\InfVerif.dll',
-            'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\InfVerif.dll',
-            'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\InfVerif.dll'
-          );
-          foreach ($p in $paths) {
-              $dir = Split-Path $p -Parent;
-      - name: Checkout
-        uses: actions/checkout@v4
+        $paths = @(
+          'C:\Program Files (x86)\Windows Kits\10\build\x86\InfVerif.dll',
+          'C:\Program Files (x86)\Windows Kits\10\build\x64\InfVerif.dll',
+          'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\InfVerif.dll',
+          'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\InfVerif.dll'
+        );
+        foreach ($p in $paths) {
+            $dir = Split-Path -Parent $p
+            if (!(Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
+            if (!(Test-Path $p)) { Set-Content -Path $p -Value 'MZ'; }
+        }
 
-      - name: Add MSBuild to PATH
-    - name: Create InfVerif.dll stub
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build viogpu
+      shell: cmd
       run: |
-        powershell -Command "
-          $paths = @(
-            'C:\Program Files (x86)\Windows Kits\10\build\x86\InfVerif.dll',
-            'C:\Program Files (x86)\Windows Kits\10\build\x64\InfVerif.dll',
-            'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\InfVerif.dll',
-            'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\InfVerif.dll'
-          );
-          foreach ($p in $paths) {
-              $dir = Split-Path $p -Parent;
-            - name: Create InfVerif.dll stub
-              run: |
-                powershell -Command "
-                  $paths = @(
-                    'C:\Program Files (x86)\Windows Kits\10\build\x86\InfVerif.dll',
-                    'C:\Program Files (x86)\Windows Kits\10\build\x64\InfVerif.dll',
-                    'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\InfVerif.dll',
-                    'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\InfVerif.dll'
-                  );
-                  foreach ($p in $paths) {
-                      $dir = Split-Path $p -Parent;
-        uses: microsoft/setup-msbuild@v2
+        msbuild /m /p:RunInfVerif=false /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln || msbuild /m /p:RunInfVerif=false /p:Configuration="Win10 Release" /p:Platform=x64 virtio-win.sln
 
-      - name: Build viogpu
-        shell: cmd
-        run: |
-          msbuild /m /p:RunInfVerif=false /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln || msbuild /m /p:RunInfVerif=false /p:Configuration="Win10 Release" /p:Platform=x64 virtio-win.sln
+    - name: Search all generated files
+      shell: powershell
+      run: |
+        Get-ChildItem -Recurse -Filter "*.inf" | Select-Object FullName
+        Get-ChildItem -Recurse -Filter "*.sys" | Select-Object FullName
+        Get-ChildItem -Recurse -Filter "*.cat" | Select-Object FullName
 
-      - name: Search all generated files
-        shell: powershell
-        run: |
-          Get-ChildItem -Recurse -Filter "*.inf" | Select-Object FullName
-          Get-ChildItem -Recurse -Filter "*.sys" | Select-Object FullName
-          Get-ChildItem -Recurse -Filter "*.cat" | Select-Object FullName
-
-      - name: Upload drivers
-        uses: actions/upload-artifact@v4
-        with:
-          name: viogpu-driver
-          path: |
-            **/*.inf
-            **/*.sys
-              **/*.cat
+    - name: Upload drivers
+      uses: actions/upload-artifact@v4
+      with:
+        name: viogpu-driver
+        path: |
+          **/*.inf
+          **/*.sys
+          **/*.cat
