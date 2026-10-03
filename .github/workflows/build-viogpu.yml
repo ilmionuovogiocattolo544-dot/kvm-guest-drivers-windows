@@ -16,7 +16,7 @@ jobs:
       - name: Build viogpu
         shell: cmd
         run: |
-          msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln || msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 virtio-win.sln
+          msbuild /m /p:RunInfVerif=false /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln || msbuild /m /p:RunInfVerif=false /p:Configuration="Win10 Release" /p:Platform=x64 virtio-win.sln
 
       - name: Search all generated files
         shell: powershell
