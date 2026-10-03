@@ -36,7 +36,7 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v2
 
-    - name: Build viogpu solution/projects
+    - name: Build viogpu solution
       shell: cmd
       run: |
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln
@@ -45,7 +45,6 @@ jobs:
       shell: powershell
       run: |
         New-Item -ItemType Directory -Force -Path .\final-output
-        # Copiamo tutto ciò che riguarda viogpu (sys, inf, cat, dll, etc.) ricorsivamente
         Get-ChildItem -Path "." -Recurse -Filter "*viogpu*" | Where-Object { $_.FullName -notlike "*\.git\*" -and $_.PSIsContainer -eq $false } | ForEach-Object {
             Write-Host "Copying: $($_.FullName)"
             Copy-Item $_.FullName -Destination .\final-output -Force
