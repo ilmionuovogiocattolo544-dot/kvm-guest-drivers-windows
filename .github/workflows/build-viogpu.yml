@@ -38,9 +38,10 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v2
 
-    - name: Build viogpu projects directly
+    - name: Build all viogpu components
       shell: cmd
       run: |
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu\viogpu.vcxproj
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpures\viogpures.vcxproj
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpusc\viogpusc.vcxproj
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpuap\viogpuap.vcxproj
