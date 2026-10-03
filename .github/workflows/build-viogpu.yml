@@ -13,19 +13,28 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Create InfVerif.dll stub
+    - name: Remove InfVerif elements from project files
       shell: powershell
       run: |
-        $paths = @(
-          'C:\Program Files (x86)\Windows Kits\10\build\x86\InfVerif.dll',
-          'C:\Program Files (x86)\Windows Kits\10\build\x64\InfVerif.dll',
-          'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\InfVerif.dll',
-          'C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\InfVerif.dll'
-        );
-        foreach ($p in $paths) {
-            $dir = Split-Path -Parent $p
-            if (!(Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
-            if (!(Test-Path $p)) { Set-Content -Path $p -Value 'MZ'; }
+        Get-ChildItem -Recurse -Filter "*.vcxproj" | ForEach-Object {
+            $content = Get-Content $_.FullName -Raw
+            if ($content -match '<RunInfVerif>') {
+                Write-Host "Cleaning InfVerif from $($_.Name)"
+                # Rimuove il tag e il suo contenuto o l'intera riga
+                $cleaned = [System.Text.RegularExpressions.Regex]::Replace($content, '<RunInfVerif>.*?</RunInfVerif>', '', 'Singleline')
+                $cleaned = [System.Text.RegularExpressions.Regex]::Replace($cleaned, '<RunInfVerif\s*/>', '')
+                Set-Content -Path $_.FullName -Value $cleaned -NoNewline
+            }
+        }
+        # Pulizia di sicurezza eventuale su file .props
+        Get-ChildItem -Recurse -Filter "*.props" | ForEach-Object {
+            $content = Get-Content $_.FullName -Raw
+            if ($content -match '<RunInfVerif>') {
+                Write-Host "Cleaning InfVerif from $($_.Name)"
+                $cleaned = [System.Text.RegularExpressions.Regex]::Replace($content, '<RunInfVerif>.*?</RunInfVerif>', '', 'Singleline')
+                $cleaned = [System.Text.RegularExpressions.Regex]::Replace($cleaned, '<RunInfVerif\s*/>', '')
+                Set-Content -Path $_.FullName -Value $cleaned -NoNewline
+            }
         }
 
     - name: Add MSBuild to PATH
@@ -34,7 +43,7 @@ jobs:
     - name: Build viogpu
       shell: cmd
       run: |
-        msbuild /m /p:RunInfVerif=false /p:EnableInfVerif=false /p:EnableInfVerif=false /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln || msbuild /m /p:RunInfVerif=false /p:EnableInfVerif=false /p:EnableInfVerif=false /p:Configuration="Win10 Release" /p:Platform=x64 virtio-win.sln
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln || msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 virtio-win.sln
 
     - name: Search all generated files
       shell: powershell
