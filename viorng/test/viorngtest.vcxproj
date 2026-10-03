@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <RunInfVerif>false</RunInfVerif>
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{8CB5D2D4-F3EA-4568-89A8-DCD332BDCF4E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -36,6 +37,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|Win32'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -43,6 +45,7 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|Win32'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -50,6 +53,7 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|x64'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -57,6 +61,7 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|x64'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -64,6 +69,7 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|ARM64'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -71,6 +77,7 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|ARM64'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -101,35 +108,43 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+    <RunInfVerif>false</RunInfVerif>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|x64'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(Platform)\$(Configuration.Replace(' ',''))\</IntDir>
     <OutDir>$(Platform)\$(Configuration.Replace(' ',''))\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|x64'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(Platform)\$(Configuration.Replace(' ',''))\</IntDir>
     <OutDir>$(Platform)\$(Configuration.Replace(' ',''))\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|ARM64'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(Platform)\$(Configuration.Replace(' ',''))\</OutDir>
     <IntDir>$(Platform)\$(Configuration.Replace(' ',''))\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|ARM64'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(Platform)\$(Configuration.Replace(' ',''))\</OutDir>
     <IntDir>$(Platform)\$(Configuration.Replace(' ',''))\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|Win32'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(Platform)\$(Configuration.Replace(' ',''))\</OutDir>
     <IntDir>$(Platform)\$(Configuration.Replace(' ',''))\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|Win32'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(Platform)\$(Configuration.Replace(' ',''))\</OutDir>
     <IntDir>$(Platform)\$(Configuration.Replace(' ',''))\</IntDir>

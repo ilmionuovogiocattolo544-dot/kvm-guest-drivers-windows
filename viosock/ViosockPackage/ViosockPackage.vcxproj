@@ -50,6 +50,7 @@
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <RunInfVerif>false</RunInfVerif>
     <ProjectGuid>{3F2854A7-A604-4006-A79B-9EAFC63015B8}</ProjectGuid>
     <TemplateGuid>{4605da2c-74a5-4865-98e1-152ef136825f}</TemplateGuid>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -60,6 +61,7 @@
     <SignMode>Off</SignMode>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <TargetVersion>Windows10</TargetVersion>
     <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
     <ConfigurationType>Utility</ConfigurationType>
@@ -68,11 +70,13 @@
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.EndsWith('Debug'))" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <UseDebugLibraries>true</UseDebugLibraries>
     <LinkIncremental>true</LinkIncremental>
     <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Platform)'=='x64'">
+    <RunInfVerif>false</RunInfVerif>
   </PropertyGroup>
   <Import Project="$(MSBuildProjectDirectory)\viosock_pack.props" />
   <Import Project="$(MSBuildProjectDirectory)\..\..\build\Driver.Common.props" />
@@ -82,32 +86,42 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|Win32'">
+    <RunInfVerif>false</RunInfVerif>
     <OutDir>$(ProjectDir)..\Install\win10\x86\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|Win32'">
+    <RunInfVerif>false</RunInfVerif>
     <OutDir>$(ProjectDir)..\Install\win11\x86\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|x64'">
+    <RunInfVerif>false</RunInfVerif>
     <OutDir>$(ProjectDir)..\Install\win10\amd64\</OutDir>
     <Inf2CatWindowsVersionList>Server10_$(DDKPlatform);$(Inf2CatWindowsVersionList)</Inf2CatWindowsVersionList>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|x64'">
+    <RunInfVerif>false</RunInfVerif>
     <OutDir>$(ProjectDir)..\Install\win11\amd64\</OutDir>
     <Inf2CatWindowsVersionList>Server10_$(DDKPlatform);$(Inf2CatWindowsVersionList)</Inf2CatWindowsVersionList>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|ARM64'">
+    <RunInfVerif>false</RunInfVerif>
     <OutDir>$(ProjectDir)..\Install\win10\ARM64\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|ARM64'">
+    <RunInfVerif>false</RunInfVerif>
     <OutDir>$(ProjectDir)..\Install\win11\ARM64\</OutDir>
   </PropertyGroup>
   <PropertyGroup>
+    <RunInfVerif>false</RunInfVerif>
     <PackageDir>$(OutDir)</PackageDir>
     <IntDir>$(PlatformTarget)\$(ConfigurationName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" />
+    <RunInfVerif>false</RunInfVerif>
   <PropertyGroup />
+    <RunInfVerif>false</RunInfVerif>
   <PropertyGroup>
+    <RunInfVerif>false</RunInfVerif>
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
     <HardwareIdString />
     <CommandLine />

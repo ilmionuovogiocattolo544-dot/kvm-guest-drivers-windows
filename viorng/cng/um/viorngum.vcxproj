@@ -39,21 +39,25 @@
     <ResourceCompile Include="viorngum.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <RunInfVerif>false</RunInfVerif>
     <ProjectGuid>{E81CB0C6-F255-4A79-B972-8E49D15D957E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>viorngprov</RootNamespace>
     <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>AutoVSToolset</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseDebugLibraries>false</UseDebugLibraries>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Win10 Release'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Win11 Release'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(MSBuildProjectDirectory)\viorngum.props" />
@@ -64,7 +68,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+    <RunInfVerif>false</RunInfVerif>
   <PropertyGroup>
+    <RunInfVerif>false</RunInfVerif>
     <OutDir>$(Platform)\$(Configuration.Replace(' ',''))\</OutDir>
     <IntDir>$(Platform)\$(Configuration.Replace(' ',''))\</IntDir>
   </PropertyGroup>

@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <RunInfVerif>false</RunInfVerif>
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{f1d3841d-fc2d-4cf1-be04-6cf5acbfc41f}</ProjectGuid>
@@ -35,6 +36,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|Win32'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
@@ -43,6 +45,7 @@
     <Driver_SpectreMitigation>Spectre</Driver_SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|Win32'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
@@ -51,6 +54,7 @@
     <Driver_SpectreMitigation>Spectre</Driver_SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|x64'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
@@ -59,6 +63,7 @@
     <Driver_SpectreMitigation>Spectre</Driver_SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|ARM64'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
@@ -67,6 +72,7 @@
     <Driver_SpectreMitigation>Spectre</Driver_SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|x64'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
@@ -75,6 +81,7 @@
     <Driver_SpectreMitigation>Spectre</Driver_SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|ARM64'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
@@ -106,37 +113,47 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+    <RunInfVerif>false</RunInfVerif>
   <PropertyGroup>
+    <RunInfVerif>false</RunInfVerif>
     <OutDir>$(PlatformTarget)\$(ConfigurationName)\</OutDir>
     <IntDir>$(PlatformTarget)\$(ConfigurationName)\</IntDir>
   </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)'=='Win10 Release'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Win11 Release'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|Win32'">
+    <RunInfVerif>false</RunInfVerif>
     <LibraryPath>$(ProjectDir)\..\lib\$(Platform)\$(ConfigurationName);$(LibraryPath)</LibraryPath>
     <TargetName>vstbridge</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|Win32'">
+    <RunInfVerif>false</RunInfVerif>
     <LibraryPath>$(ProjectDir)\..\lib\$(Platform)\$(ConfigurationName);$(LibraryPath)</LibraryPath>
     <TargetName>vstbridge</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|x64'">
+    <RunInfVerif>false</RunInfVerif>
     <LibraryPath>$(ProjectDir)\..\lib\$(Platform)\$(ConfigurationName);$(LibraryPath)</LibraryPath>
     <TargetName>vstbridge</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|ARM64'">
+    <RunInfVerif>false</RunInfVerif>
     <LibraryPath>$(ProjectDir)\..\lib\$(Platform)\$(ConfigurationName);$(LibraryPath)</LibraryPath>
     <TargetName>vstbridge</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|x64'">
+    <RunInfVerif>false</RunInfVerif>
     <LibraryPath>$(ProjectDir)\..\lib\$(Platform)\$(ConfigurationName);$(LibraryPath)</LibraryPath>
     <TargetName>vstbridge</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|ARM64'">
+    <RunInfVerif>false</RunInfVerif>
     <LibraryPath>$(ProjectDir)\..\lib\$(Platform)\$(ConfigurationName);$(LibraryPath)</LibraryPath>
     <TargetName>vstbridge</TargetName>
   </PropertyGroup>

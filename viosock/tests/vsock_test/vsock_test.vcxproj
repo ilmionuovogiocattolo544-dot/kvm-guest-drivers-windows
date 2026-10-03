@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <RunInfVerif>false</RunInfVerif>
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{7A3F9B2C-1234-4E42-9E43-A1B2C3D4E5F6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -34,6 +35,7 @@
     <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -41,10 +43,12 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)'=='Win10 Release'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Win11 Release'" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
@@ -57,6 +61,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup>
+    <RunInfVerif>false</RunInfVerif>
     <IntDir>$(PlatformTarget)\$(ConfigurationName)\vsock_test\</IntDir>
     <OutDir>$(PlatformTarget)\$(ConfigurationName)\vsock_test\</OutDir>
     <TargetName Condition="'$(Platform)'=='x64'">vsock_test</TargetName>
@@ -64,10 +69,13 @@
     <TargetName Condition="'$(Platform)'=='ARM64'">vsock_test_arm64</TargetName>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" />
+    <RunInfVerif>false</RunInfVerif>
   <PropertyGroup Condition="'$(Configuration)'=='Win10 Release'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Win11 Release'">
+    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup>

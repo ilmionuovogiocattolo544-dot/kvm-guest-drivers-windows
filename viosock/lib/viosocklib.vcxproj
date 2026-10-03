@@ -27,12 +27,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <RunInfVerif>false</RunInfVerif>
     <ProjectGuid>{315D93F9-0F5C-4ACD-AFB1-96B1E62559BC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>viosocklib</RootNamespace>
     <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <TargetVersion>Windows10</TargetVersion>
     <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
@@ -42,6 +44,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.EndsWith('Debug'))" Label="Configuration">
+    <RunInfVerif>false</RunInfVerif>
     <UseDebugLibraries>true</UseDebugLibraries>
     <LinkIncremental Condition="'$(Configuration)'!='Win10 Debug'">true</LinkIncremental>
     <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -56,10 +59,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup>
+    <RunInfVerif>false</RunInfVerif>
     <OutDir>$(PlatformTarget)\$(ConfigurationName)\</OutDir>
     <IntDir>$(PlatformTarget)\$(ConfigurationName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" />
+    <RunInfVerif>false</RunInfVerif>
   <ItemDefinitionGroup>
     <ClCompile>
       <WppEnabled>true</WppEnabled>
