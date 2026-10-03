@@ -2,10 +2,12 @@ name: Build viogpu
 
 on:
   workflow_dispatch:
+  
 
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on:
+  workflow_dispatch: windows-2022
     steps:
       - name: Create InfVerif.dll stub
         run: |
