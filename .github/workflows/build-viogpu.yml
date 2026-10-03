@@ -111,4 +111,4 @@ jobs:
           path: |
             **/*.inf
             **/*.sys
-            **/*.cat
+            **/*.cat# build trigger update
