@@ -10,8 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install WDK
-        uses: frabert/Windows-Driver-Toolkit@main
 
       - name: Build viogpu
         shell: cmd
