@@ -46,11 +46,14 @@ jobs:
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpusc\viogpusc.vcxproj
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpuap\viogpuap.vcxproj
 
-    - name: Collect build outputs
+    - name: Collect build outputs recursively
       shell: powershell
       run: |
         New-Item -ItemType Directory -Force -Path .\final-output
-        Get-ChildItem -Path "viogpu" -Recurse -Include "*.sys","*.inf","*.cat" | Copy-Item -Destination .\final-output -Force
+        Get-ChildItem -Path . -Recurse -Include "*.sys","*.inf","*.cat" | Where-Object { $_.FullName -notlike "*\.git\*" } | ForEach-Object {
+            Write-Host "Copying: $($_.FullName)"
+            Copy-Item $_.FullName -Destination .\final-output -Force
+        }
         Get-ChildItem .\final-output
 
     - name: Upload clean viogpu artifacts
