@@ -44,14 +44,19 @@ jobs:
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpusc\viogpusc.vcxproj
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpuap\viogpuap.vcxproj
 
-    - name: Collect all compiled binaries and infs (including viogpudo)
+    - name: Collect ONLY viogpu outputs
       shell: powershell
       run: |
+        Remove-Item -Path .\final-output -Recurse -ErrorAction SilentlyContinue
         New-Item -ItemType Directory -Force -Path .\final-output
-        Get-ChildItem -Path "." -Recurse -Include "*.sys","*.inf","*.cat","*.dll" | Where-Object { $_.FullName -notlike "*\.git\*" -and ($_.FullName -match "viogpu" -or $_.FullName -match "viogpudo") } | ForEach-Object {
+        
+        # Cerchiamo dentro la cartella viogpu tutti i file compilati (.sys, .inf, .cat, .dll)
+        Get-ChildItem -Path "viogpu" -Recurse -Include "*.sys","*.inf","*.cat","*.dll" | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
             Write-Host "Copying: $($_.FullName)"
             Copy-Item $_.FullName -Destination .\final-output -Force
         }
+        
+        # Mostriamo cosa abbiamo raccolto
         Get-ChildItem .\final-output
 
     - name: Upload clean viogpu artifacts
