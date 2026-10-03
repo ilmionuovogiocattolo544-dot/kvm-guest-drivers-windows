@@ -6,21 +6,18 @@ on:
 jobs:
   build:
     runs-on: windows-2022
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup MSBuild
+      - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
 
       - name: Build viogpu
         shell: cmd
         run: |
           set BUILD_ARCH=amd64
-          call build\SetVsEnv.bat
-          where msbuild
-          call viogpu\build_AllNoSdv.bat
+          msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln || msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 virtio-win.sln
 
       - name: Search drivers
         shell: powershell
