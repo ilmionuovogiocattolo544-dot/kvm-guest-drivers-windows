@@ -25,6 +25,15 @@ jobs:
           Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Directory -ErrorAction SilentlyContinue |
             Select-Object -ExpandProperty FullName
 
+      - name: Inspect InfVerif target
+        shell: powershell
+        run: |
+          $file = "C:\Program Files (x86)\Windows Kits\10\build\10.0.26100.0\WindowsDriver.common.targets"
+          $lines = Get-Content $file
+          for ($i = 659; $i -le 709; $i++) {
+            "{0}: {1}" -f ($i + 1), $lines[$i]
+          }
+
       - name: Build viogpu
         shell: cmd
         run: |
