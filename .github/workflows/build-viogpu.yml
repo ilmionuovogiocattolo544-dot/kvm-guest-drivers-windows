@@ -12,6 +12,15 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
 
+      - name: Inspect ApiValidator target
+        shell: powershell
+        run: |
+          $file = "C:\Program Files (x86)\Windows Kits\10\build\10.0.26100.0\WindowsDriver.common.targets"
+          $lines = Get-Content $file
+          for ($i = 1975; $i -le 2010; $i++) {
+            "{0}: {1}" -f ($i + 1), $lines[$i]
+          }
+
       - name: Build viogpu
         shell: cmd
         run: |
