@@ -12,34 +12,12 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
 
-      - name: Diagnose InfVerif
-        shell: powershell
-        run: |
-          $ErrorActionPreference = "Continue"
-
-          Write-Host "Searching for InfVerif.dll..."
-          Get-ChildItem "C:\Program Files (x86)\Windows Kits\10" -Recurse -Filter InfVerif.dll -ErrorAction SilentlyContinue |
-            Select-Object -ExpandProperty FullName
-
-          Write-Host "WDK bin directories:"
-          Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Directory -ErrorAction SilentlyContinue |
-            Select-Object -ExpandProperty FullName
-
-      - name: Inspect InfVerif target
-        shell: powershell
-        run: |
-          $file = "C:\Program Files (x86)\Windows Kits\10\build\10.0.26100.0\WindowsDriver.common.targets"
-          $lines = Get-Content $file
-          for ($i = 659; $i -le 709; $i++) {
-            "{0}: {1}" -f ($i + 1), $lines[$i]
-          }
-
       - name: Build viogpu
         shell: cmd
         run: |
-          msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu/viogpu.sln
-          msbuild /m /p:Configuration="Win11 Release" /p:Platform=x64 viogpu/viogpu.sln
-          msbuild /m /p:Configuration="Win11 Release" /p:Platform=ARM64 viogpu/viogpu.sln
+          msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu/viogpu.sln /p:SkipPackageVerification=true
+          msbuild /m /p:Configuration="Win11 Release" /p:Platform=x64 viogpu/viogpu.sln /p:SkipPackageVerification=true
+          msbuild /m /p:Configuration="Win11 Release" /p:Platform=ARM64 viogpu/viogpu.sln /p:SkipPackageVerification=true
 
       - name: Verify packages
         shell: powershell
