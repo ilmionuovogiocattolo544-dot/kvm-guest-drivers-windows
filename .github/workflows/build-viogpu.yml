@@ -12,6 +12,19 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
 
+      - name: Diagnose InfVerif
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Continue"
+
+          Write-Host "Searching for InfVerif.dll..."
+          Get-ChildItem "C:\Program Files (x86)\Windows Kits\10" -Recurse -Filter InfVerif.dll -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty FullName
+
+          Write-Host "WDK bin directories:"
+          Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Directory -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty FullName
+
       - name: Build viogpu
         shell: cmd
         run: |
