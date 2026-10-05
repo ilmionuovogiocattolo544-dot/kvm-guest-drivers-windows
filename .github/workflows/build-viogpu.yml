@@ -17,12 +17,13 @@ jobs:
         run: |
           msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu/viogpu.sln
           msbuild /m /p:Configuration="Win11 Release" /p:Platform=x64 viogpu/viogpu.sln
+          msbuild /m /p:Configuration="Win11 Release" /p:Platform=ARM64 viogpu/viogpu.sln
 
       - name: Verify packages
         shell: powershell
         run: |
           $ErrorActionPreference = "Stop"
-          foreach ($package in @("viogpu/Install/Win10/amd64", "viogpu/Install/Win11/amd64")) {
+          foreach ($package in @("viogpu/Install/Win10/amd64", "viogpu/Install/Win11/amd64", "viogpu/Install/Win11/ARM64")) {
             if (-not (Test-Path $package)) { throw "Package directory not found: $package" }
             foreach ($file in @("viogpu.sys", "viogpu.inf", "viogpu.cat")) {
               $path = Join-Path $package $file
@@ -38,9 +39,16 @@ jobs:
           path: viogpu/Install/Win10/amd64/*
           if-no-files-found: error
 
-      - name: Upload Win11 package
+      - name: Upload Win11 x64 package
         uses: actions/upload-artifact@v4
         with:
           name: viogpu-driver-win11-amd64
           path: viogpu/Install/Win11/amd64/*
+          if-no-files-found: error
+
+      - name: Upload Win11 ARM64 package
+        uses: actions/upload-artifact@v4
+        with:
+          name: viogpu-driver-win11-arm64
+          path: viogpu/Install/Win11/ARM64/*
           if-no-files-found: error
