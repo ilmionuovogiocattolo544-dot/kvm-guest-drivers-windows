@@ -29,14 +29,14 @@
 
 #include "helper.h"
 #include "driver.h"
-#include "viogpudo.h"
+#include "viogpu.h"
 #include "baseobj.h"
 #include "bitops.h"
 #include "viogpum.h"
 #include "edid.h"
 
 #if !DBG
-#include "viogpudo.tmh"
+#include "viogpu.tmh"
 #endif
 
 static UINT g_InstanceId = 0;
@@ -122,7 +122,7 @@ NTSTATUS VioGpuDod::StartDevice(_In_ DXGK_START_INFO *pDxgkStartInfo,
         m_DxgkInterface.Version = DXGKDDI_INTERFACE_VERSION;
         m_DxgkInterface.Size = sizeof(m_DxgkInterface);
         DbgPrint(TRACE_LEVEL_FATAL,
-                 ("VIOGPU: Provided interface version cannot be used by Viogpudo (version %u, size %u), degrading to "
+                 ("VIOGPU: Provided interface version cannot be used by Viogpu (version %u, size %u), degrading to "
                   "version %u, size %u)\n",
                   pDxgkInterface->Version,
                   pDxgkInterface->Size,

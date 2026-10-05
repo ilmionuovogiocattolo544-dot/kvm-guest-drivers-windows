@@ -22,8 +22,7 @@
  * the COPYING file in the top-level directory.
  *
  **********************************************************************/
-#include "viogpu.h"
-#include "..\viogpudo\viogpudo.h"
+#include "..\viogpu\viogpu.h"
 #if !DBG
 #include "viogpu_pci.tmh"
 #endif

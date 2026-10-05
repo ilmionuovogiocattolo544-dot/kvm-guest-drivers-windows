@@ -1,5 +1,4 @@
 name: Build viogpu
-
 on:
   workflow_dispatch:
 
@@ -16,20 +15,32 @@ jobs:
       - name: Build viogpu
         shell: cmd
         run: |
-          msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu.sln || msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 virtio-win.sln
+          msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu/viogpu.sln
+          msbuild /m /p:Configuration="Win11 Release" /p:Platform=x64 viogpu/viogpu.sln
 
-      - name: Search all generated files
+      - name: Verify packages
         shell: powershell
         run: |
-          Get-ChildItem -Recurse -Filter "*.inf" | Select-Object FullName
-          Get-ChildItem -Recurse -Filter "*.sys" | Select-Object FullName
-          Get-ChildItem -Recurse -Filter "*.cat" | Select-Object FullName
+          $ErrorActionPreference = "Stop"
+          foreach ($package in @("viogpu/Install/Win10/amd64", "viogpu/Install/Win11/amd64")) {
+            if (-not (Test-Path $package)) { throw "Package directory not found: $package" }
+            foreach ($file in @("viogpu.sys", "viogpu.inf", "viogpu.cat")) {
+              $path = Join-Path $package $file
+              if (-not (Test-Path $path)) { throw "Required package file not found: $path" }
+              Write-Host "Found: $path"
+            }
+          }
 
-      - name: Upload drivers
+      - name: Upload Win10 package
         uses: actions/upload-artifact@v4
         with:
-          name: viogpu-driver
-          path: |
-            **/*.inf
-            **/*.sys
-            **/*.cat
+          name: viogpu-driver-win10-amd64
+          path: viogpu/Install/Win10/amd64/*
+          if-no-files-found: error
+
+      - name: Upload Win11 package
+        uses: actions/upload-artifact@v4
+        with:
+          name: viogpu-driver-win11-amd64
+          path: viogpu/Install/Win11/amd64/*
+          if-no-files-found: error

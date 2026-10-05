@@ -22,7 +22,7 @@
     <ClCompile Include="driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="viogpudo.cpp">
+    <ClCompile Include="viogpu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\common\baseobj.cpp">
@@ -57,7 +57,7 @@
     <ClInclude Include="driver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="viogpudo.h">
+    <ClInclude Include="viogpu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -71,12 +71,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="viogpudo.rc">
+    <ResourceCompile Include="viogpu.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Inf Include="viogpudo.inx">
+    <Inf Include="viogpu.inx">
       <Filter>Driver Files</Filter>
     </Inf>
   </ItemGroup>
