@@ -12,6 +12,12 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
 
+      - name: Check installed WDK versions
+        shell: powershell
+        run: |
+          Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\build" -Directory |
+            Select-Object -ExpandProperty Name
+
       - name: Build viogpu
         shell: cmd
         run: |
