@@ -1,0 +1,36 @@
+name: Experimental viogpu Win10 x86
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-x86:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Install legacy WDK
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          winget install --id Microsoft.WindowsWDK.10.0.22621 `
+            --exact --source winget `
+            --silent --accept-package-agreements --accept-source-agreements
+
+      - name: Verify WDK installation
+        shell: powershell
+        run: |
+          $root = "C:\Program Files (x86)\Windows Kits\10"
+          Get-ChildItem "$root\build" -Directory |
+            Select-Object -ExpandProperty Name
+
+          if (-not (Test-Path "$root\build\10.0.22621.0")) {
+            throw "WDK 10.0.22621.0 non trovato: verificare il risultato dell'installazione."
+          }
+
+          Write-Host "WDK 10.0.22621.0 verificato."
