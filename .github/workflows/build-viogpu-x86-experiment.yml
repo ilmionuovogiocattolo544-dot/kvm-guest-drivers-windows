@@ -14,11 +14,18 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
+    - name: Install Windows SDK and WDK
+      shell: powershell
+      run: |
+        Write-Host "Installing Windows SDK..."
+        winget install --id Microsoft.WindowsSDK.10.0.26100 --silent --accept-source-agreements --accept-package-agreements
+        
+        Write-Host "Installing Windows WDK..."
+        winget install --id Microsoft.WindowsWDK.10.0.26100 --silent --accept-source-agreements --accept-package-agreements
+
     - name: Build Viogpu x86
       shell: powershell
       run: |
-        # Compila la solution usando la configurazione corretta (es. Win10 Release / x86 o quella identificata)
-        # Se nel passaggio precedente hai visto la configurazione esatta, la inseriamo qui sotto:
         msbuild .\viogpu\viogpu.sln /p:Configuration="Win10 Release" /p:Platform="x86"
 
     - name: Upload Driver Artifacts
