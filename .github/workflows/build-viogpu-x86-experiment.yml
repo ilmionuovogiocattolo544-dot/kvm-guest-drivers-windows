@@ -6,7 +6,6 @@ on:
 jobs:
   build-x86:
     runs-on: windows-2022
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,22 +17,22 @@ jobs:
         shell: powershell
         run: |
           $ErrorActionPreference = "Stop"
-          winget install --id Microsoft.WindowsSDK.10.0.22621 `
-            --exact --version 10.0.22621.2428 --force `
-            --silent --accept-package-agreements --accept-source-agreements
-          if ($LASTEXITCODE -ne 0) {
-            throw "Installazione SDK 22621 fallita: $LASTEXITCODE"
+          $url = "https://download.microsoft.com/download/3/b/d/3bd97f81-3f5b-4922-b86d-dc5145cd6bfe/windowssdk/winsdksetup.exe"
+          Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\winsdksetup.exe"
+          $p = Start-Process "$env:TEMP\winsdksetup.exe" -ArgumentList "/q" -Wait -PassThru
+          if ($p.ExitCode -notin @(0, 3010)) {
+            throw "Installazione SDK fallita: $($p.ExitCode)"
           }
 
       - name: Install legacy WDK 22621
         shell: powershell
         run: |
           $ErrorActionPreference = "Stop"
-          winget install --id Microsoft.WindowsWDK.10.0.22621 `
-            --exact --version 10.1.22621.2428 --force `
-            --silent --accept-package-agreements --accept-source-agreements
-          if ($LASTEXITCODE -ne 0) {
-            throw "Installazione WDK 22621 fallita: $LASTEXITCODE"
+          $url = "https://download.microsoft.com/download/7/b/f/7bfc8dbe-00cb-47de-b856-70e696ef4f46/wdk/wdksetup.exe"
+          Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\wdksetup.exe"
+          $p = Start-Process "$env:TEMP\wdksetup.exe" -ArgumentList "/q" -Wait -PassThru
+          if ($p.ExitCode -notin @(0, 3010)) {
+            throw "Installazione WDK fallita: $($p.ExitCode)"
           }
 
       - name: Verify legacy kit
@@ -41,13 +40,12 @@ jobs:
         run: |
           $ErrorActionPreference = "Stop"
           $root = "C:\Program Files (x86)\Windows Kits\10"
-
           foreach ($path in @(
             "$root\Include\10.0.22621.0",
             "$root\build\10.0.22621.0"
           )) {
             if (-not (Test-Path $path)) {
-              throw "Percorso del kit non trovato: $path"
+              throw "Kit non trovato: $path"
             }
             Write-Host "Verificato: $path"
           }
@@ -63,11 +61,10 @@ jobs:
         run: |
           $ErrorActionPreference = "Stop"
           $dir = "viogpu/Install/Win10/x86"
-
           foreach ($file in @("viogpu.inf", "viogpu.sys", "viogpu.cat")) {
             $path = Join-Path $dir $file
             if (-not (Test-Path $path)) {
-              throw "File del pacchetto non trovato: $path"
+              throw "File mancante: $path"
             }
             Write-Host "Creato: $path"
           }
