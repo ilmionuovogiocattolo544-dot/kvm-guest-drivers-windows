@@ -17,22 +17,11 @@ jobs:
     - name: Install Windows SDK and WDK
       shell: powershell
       run: |
-        Write-Host "Installing Windows SDK..."
         winget install --id Microsoft.WindowsSDK.10.0.26100 --silent --accept-source-agreements --accept-package-agreements
-        
-        Write-Host "Installing Windows WDK..."
         winget install --id Microsoft.WindowsWDK.10.0.26100 --silent --accept-source-agreements --accept-package-agreements
 
     - name: Build Viogpu x86
       shell: powershell
       run: |
-        msbuild .\viogpu\viogpu.sln /p:Configuration="Win10 Release" /p:Platform="x86"
-
-    - name: Upload Driver Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: viogpu-win10-x86
-        path: |
-          **/*.sys
-          **/*.inf
-          **/*.cat
+        # Forza l'utilizzo del WDK installato impostando le proprietà corrette per MSBuild
+        msbuild .\viogpu\viogpu.sln /p:Configuration="Win10 Release" /p:Platform="x86" /p:UseWDK=true
