@@ -1,0 +1,80 @@
+name: Experimental viogpu Win10 x86
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-x86:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Install Windows SDK 22621
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          winget install --id Microsoft.WindowsSDK.10.0.22621 `
+            --exact --version 10.0.22621.2428 --force `
+            --silent --accept-package-agreements --accept-source-agreements
+          if ($LASTEXITCODE -ne 0) {
+            throw "Installazione SDK 22621 fallita: $LASTEXITCODE"
+          }
+
+      - name: Install legacy WDK 22621
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          winget install --id Microsoft.WindowsWDK.10.0.22621 `
+            --exact --version 10.1.22621.2428 --force `
+            --silent --accept-package-agreements --accept-source-agreements
+          if ($LASTEXITCODE -ne 0) {
+            throw "Installazione WDK 22621 fallita: $LASTEXITCODE"
+          }
+
+      - name: Verify legacy kit
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          $root = "C:\Program Files (x86)\Windows Kits\10"
+
+          foreach ($path in @(
+            "$root\Include\10.0.22621.0",
+            "$root\build\10.0.22621.0"
+          )) {
+            if (-not (Test-Path $path)) {
+              throw "Percorso del kit non trovato: $path"
+            }
+            Write-Host "Verificato: $path"
+          }
+
+      - name: Build Win10 x86
+        shell: cmd
+        run: |
+          msbuild /m /p:Configuration="Win10 Release" /p:Platform=x86 /p:WindowsTargetPlatformVersion=10.0.22621.0 /p:SkipPackageVerification=true /p:ApiValidator_Enable=false viogpu/viogpu.sln
+          if errorlevel 1 exit /b 1
+
+      - name: Verify x86 package
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          $dir = "viogpu/Install/Win10/x86"
+
+          foreach ($file in @("viogpu.inf", "viogpu.sys", "viogpu.cat")) {
+            $path = Join-Path $dir $file
+            if (-not (Test-Path $path)) {
+              throw "File del pacchetto non trovato: $path"
+            }
+            Write-Host "Creato: $path"
+          }
+
+      - name: Upload Win10 x86 driver
+        uses: actions/upload-artifact@v4
+        with:
+          name: viogpu-win10-x86
+          path: viogpu/Install/Win10/x86/
+          if-no-files-found: error
