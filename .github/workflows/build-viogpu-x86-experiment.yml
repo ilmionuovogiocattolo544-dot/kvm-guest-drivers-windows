@@ -23,5 +23,5 @@ jobs:
     - name: Build Viogpu x86
       shell: powershell
       run: |
-        # Forza l'utilizzo del WDK installato impostando le proprietà corrette per MSBuild
-        msbuild .\viogpu\viogpu.sln /p:Configuration="Win10 Release" /p:Platform="x86" /p:UseWDK=true
+        # Disabilita temporaneamente il controllo rigido della versione WDK se fallisce il caricamento della DLL dei task
+        msbuild .\viogpu\viogpu.sln /p:Configuration="Win10 Release" /p:Platform="x86" /p:RunCodeAnalysis=false /p:AutoselectWDK=true
