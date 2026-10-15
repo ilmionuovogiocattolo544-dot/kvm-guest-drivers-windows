@@ -11,12 +11,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install Windows SDK 22621
+    - name: Install Windows SDK 22621 via Chocolatey
       shell: powershell
       run: |
-        $url = "https://download.microsoft.com/download/cb9de490-6e67-4ac6-8c2c-6dfabb824e8a/windowssdk/winsdksetup.exe"
-        Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\winsdksetup.exe"
-        $p = Start-Process "$env:TEMP\winsdksetup.exe" -ArgumentList "/quiet", "/norestart", "/features", "OptionId.WindowsDesktopSoftwareDevelopmentKit" -Wait -PassThru
-        if ($p.ExitCode -notin @(0, 3010)) {
-          throw "Installazione SDK fallita: $($p.ExitCode)"
-        }
+        choco install windows-sdk-10.1 -y --version=10.0.22621.0
