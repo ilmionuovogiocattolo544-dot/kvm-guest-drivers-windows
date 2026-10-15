@@ -17,7 +17,7 @@ jobs:
         shell: powershell
         run: |
           $ErrorActionPreference = "Stop"
-          $url = "https://download.microsoft.com/download/3/b/d/3bd97f81-3f5b-4922-b86d-dc5145cd6bfe/windowssdk/winsdksetup.exe"
+          $url = "https://download.microsoft.com/download/cb9de490-6e67-4ac6-8c2c-6dfabb824e8a/windowssdk/winsdksetup.exe"
           Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\winsdksetup.exe"
           $p = Start-Process "$env:TEMP\winsdksetup.exe" -ArgumentList "/q" -Wait -PassThru
           if ($p.ExitCode -notin @(0, 3010)) {
@@ -28,7 +28,7 @@ jobs:
         shell: powershell
         run: |
           $ErrorActionPreference = "Stop"
-          $url = "https://download.microsoft.com/download/7/b/f/7bfc8dbe-00cb-47de-b856-70e696ef4f46/wdk/wdksetup.exe"
+          $url = "https://download.microsoft.com/download/03f059f8-d6a3-4b9c-b85b-95cc401be222/wdk/wdksetup.exe"
           Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\wdksetup.exe"
           $p = Start-Process "$env:TEMP\wdksetup.exe" -ArgumentList "/q" -Wait -PassThru
           if ($p.ExitCode -notin @(0, 3010)) {
