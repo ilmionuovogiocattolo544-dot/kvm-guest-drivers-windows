@@ -56,15 +56,15 @@ jobs:
           if-no-files-found: error
 
 
-      - name: Upload Win10 ARM64 package
-        uses: actions/upload-artifact@v4
-        with:
-          name: viogpu-driver-win10-arm64
-          path: viogpu/Install/Win10/ARM64/*
-          if-no-files-found: error
       - name: Upload Win10 x86 package
         uses: actions/upload-artifact@v4
         with:
           name: viogpu-driver-win10-x86
           path: viogpu/Install/Win10/x86/*
+          if-no-files-found: error
+      - name: Upload Win10 ARM64 package
+        uses: actions/upload-artifact@v4
+        with:
+          name: viogpu-driver-win10-arm64
+          path: viogpu/Install/Win10/ARM64/*
           if-no-files-found: error
