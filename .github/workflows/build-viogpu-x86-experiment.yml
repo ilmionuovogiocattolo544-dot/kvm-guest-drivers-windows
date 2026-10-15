@@ -14,7 +14,8 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Verify MSBuild Version
+    - name: Compile Viogpu x86
       shell: powershell
       run: |
-        msbuild -version
+        # Sostituisci il percorso qui sotto con il file .sln o .vcxproj reale del driver viogpu nella tua repo
+        msbuild .\viogpu\viogpu.sln /p:Configuration="Release" /p:Platform="Win32"
