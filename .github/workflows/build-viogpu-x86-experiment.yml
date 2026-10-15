@@ -14,21 +14,18 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Parse Solution Configurations
+    - name: Build Viogpu x86
       shell: powershell
       run: |
-        $content = Get-Content .\viogpu\viogpu.sln
-        $inGlobalSection = $false
-        foreach ($line in $content) {
-            if ($line -match "GlobalSection\(SolutionConfigurationPlatforms\)preSolution") {
-                $inGlobalSection = $true
-                continue
-            }
-            if ($inGlobalSection -and $line -match "EndGlobalSection") {
-                $inGlobalSection = $false
-                break
-            }
-            if ($inGlobalSection) {
-                Write-Host "CONFIG FOUND: $($line.Trim())"
-            }
-        }
+        # Compila la solution usando la configurazione corretta (es. Win10 Release / x86 o quella identificata)
+        # Se nel passaggio precedente hai visto la configurazione esatta, la inseriamo qui sotto:
+        msbuild .\viogpu\viogpu.sln /p:Configuration="Win10 Release" /p:Platform="x86"
+
+    - name: Upload Driver Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: viogpu-win10-x86
+        path: |
+          **/*.sys
+          **/*.inf
+          **/*.cat
