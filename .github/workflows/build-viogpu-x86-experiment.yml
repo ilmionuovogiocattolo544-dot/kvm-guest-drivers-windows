@@ -17,5 +17,4 @@ jobs:
     - name: Compile Viogpu x86
       shell: powershell
       run: |
-        # Sostituisci il percorso qui sotto con il file .sln o .vcxproj reale del driver viogpu nella tua repo
-        msbuild .\viogpu\viogpu.sln /p:Configuration="Release" /p:Platform="Win32"
+        msbuild .\viogpu\viogpu.sln /p:Configuration="Release" /p:Platform="x86"
