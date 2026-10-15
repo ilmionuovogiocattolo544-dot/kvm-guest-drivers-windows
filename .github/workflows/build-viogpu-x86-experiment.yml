@@ -50,6 +50,18 @@ jobs:
             Write-Host "Verificato: $path"
           }
 
+      - name: Diagnose WDK architecture validation
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          $f = "C:\Program Files (x86)\Windows Kits\10\build\10.0.22621.0\WindowsDriver.common.targets"
+          $lines = Get-Content $f
+          for ($i = 210; $i -lt [Math]::Min(255, $lines.Length); $i++) {
+            "{0}: {1}" -f ($i + 1), $lines[$i]
+          }
+          Select-String -Path $f -Pattern "Win32|valid architecture|TargetArch|Platform" |
+            Select-Object -First 30
+
       - name: Build Win10 x86
         shell: cmd
         run: |
