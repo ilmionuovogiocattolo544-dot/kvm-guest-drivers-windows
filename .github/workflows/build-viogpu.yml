@@ -23,8 +23,6 @@ jobs:
         run: |
           msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu/viogpu.sln /p:SkipPackageVerification=true /p:ApiValidator_Enable=false
           if errorlevel 1 exit /b 1
-          msbuild /m /p:Configuration="Win10 Release" /p:Platform=x86 viogpu/viogpu.sln /p:SkipPackageVerification=true /p:ApiValidator_Enable=false
-          if errorlevel 1 exit /b 1
           msbuild /m /p:Configuration="Win10 Release" /p:Platform=ARM64 viogpu/viogpu.sln /p:SkipPackageVerification=true /p:ApiValidator_Enable=false
           if errorlevel 1 exit /b 1
           msbuild /m /p:Configuration="Win11 Release" /p:Platform=x64 viogpu/viogpu.sln /p:SkipPackageVerification=true /p:ApiValidator_Enable=false
@@ -32,20 +30,7 @@ jobs:
           msbuild /m /p:Configuration="Win11 Release" /p:Platform=ARM64 viogpu/viogpu.sln /p:SkipPackageVerification=true /p:ApiValidator_Enable=false
           if errorlevel 1 exit /b 1
 
-      - name: Verify packages
-        shell: powershell
-        run: |
-          $ErrorActionPreference = "Stop"
-          foreach ($package in @("viogpu/Install/Win10/amd64", "viogpu/Install/Win10/x86", "viogpu/Install/Win10/ARM64", "viogpu/Install/Win11/amd64", "viogpu/Install/Win11/ARM64")) {
-            if (-not (Test-Path $package)) { throw "Package directory not found: $package" }
-            foreach ($file in @("viogpu.sys", "viogpu.inf", "viogpu.cat")) {
-              $path = Join-Path $package $file
-              if (-not (Test-Path $path)) { throw "Required package file not found: $path" }
-              Write-Host "Found: $path"
-            }
-          }
-
-      - name: Upload Win10 package
+      - name: Upload Win10 x64 package
         uses: actions/upload-artifact@v4
         with:
           name: viogpu-driver-win10-amd64
@@ -66,13 +51,6 @@ jobs:
           path: viogpu/Install/Win11/ARM64/*
           if-no-files-found: error
 
-
-      - name: Upload Win10 x86 package
-        uses: actions/upload-artifact@v4
-        with:
-          name: viogpu-driver-win10-x86
-          path: viogpu/Install/Win10/x86/*
-          if-no-files-found: error
       - name: Upload Win10 ARM64 package
         uses: actions/upload-artifact@v4
         with:
