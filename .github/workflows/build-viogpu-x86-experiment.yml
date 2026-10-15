@@ -14,7 +14,9 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Compile Viogpu x86
+    - name: Inspect Solution Configurations
       shell: powershell
       run: |
-        msbuild .\viogpu\viogpu.sln /p:Configuration="Release" /p:Platform="x86"
+        # Mostra i progetti e le configurazioni disponibili nella solution
+        msbuild .\viogpu\viogpu.sln /pp:edump.xml
+        Select-String -Path edump.xml -Pattern "SolutionConfiguration" -Context 2,2
