@@ -11,8 +11,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Verify Environment and MSBuild
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Verify MSBuild Version
       shell: powershell
       run: |
-        Write-Host "SDK e Visual Studio sono già preinstallati sul runner."
-        msbuild /version
+        msbuild -version
