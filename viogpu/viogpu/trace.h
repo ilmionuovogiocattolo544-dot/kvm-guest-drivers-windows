@@ -42,7 +42,7 @@
 
 #define WPP_CONTROL_GUIDS                                              \
     WPP_DEFINE_CONTROL_GUID(                                           \
-        VioGpuDodTraceGuid, (D6B96B2C,72BF,4CA5,BB89,9FCA5C82F020),    \
+        VioGpuTraceGuid, (D6B96B2C,72BF,4CA5,BB89,9FCA5C82F020),    \
         WPP_DEFINE_BIT(TRACE_ALL)                                      \
         )
 

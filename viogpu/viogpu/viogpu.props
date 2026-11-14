@@ -15,7 +15,7 @@ Enabling and customizing virtio build features
     <Feature_AdjustInfLegacy>true</Feature_AdjustInfLegacy>
     <Feature_AdjustInf>true</Feature_AdjustInf>
     <SourceInfFile>viogpu.inx</SourceInfFile>
-    <CopyrightStrings>VioGpuDodCopyrightStrings</CopyrightStrings>
+    <CopyrightStrings>VioGpuCopyrightStrings</CopyrightStrings>
   </PropertyGroup>
 
   <ItemGroup>

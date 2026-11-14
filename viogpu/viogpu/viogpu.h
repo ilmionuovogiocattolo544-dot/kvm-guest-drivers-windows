@@ -70,12 +70,12 @@ typedef struct _CURRENT_MODE
     PVOID RamFrameBuffer;
 } CURRENT_MODE;
 
-class VioGpuDod;
+class VioGpu;
 
 class VioGpuAdapter : IVioGpuPCI
 {
   public:
-    VioGpuAdapter(_In_ VioGpuDod *pVioGpuDod);
+    VioGpuAdapter(_In_ VioGpu *pVioGpu);
     ~VioGpuAdapter(void);
     NTSTATUS SetCurrentMode(ULONG Mode, CURRENT_MODE *pCurrentMode);
     ULONG GetModeCount(void)
@@ -141,9 +141,9 @@ class VioGpuAdapter : IVioGpuPCI
     {
         m_CurrentModeIndex = idx;
     }
-    VioGpuDod *GetVioGpu(void)
+    VioGpu *GetVioGpu(void)
     {
-        return m_pVioGpuDod;
+        return m_pVioGpu;
     }
     ULONG GetInstanceId(void)
     {
@@ -182,7 +182,7 @@ class VioGpuAdapter : IVioGpuPCI
     VOID CloseResolutionEvent(VOID);
 
   private:
-    VioGpuDod *m_pVioGpuDod;
+    VioGpu *m_pVioGpu;
     PVIDEO_MODE_INFORMATION m_ModeInfo;
     ULONG m_ModeCount;
     USHORT m_CurrentModeIndex;
@@ -226,7 +226,7 @@ class VioGpuAdapter : IVioGpuPCI
     HANDLE m_ResolutionEventHandle;
 };
 
-class VioGpuDod
+class VioGpu
 {
   private:
     DEVICE_OBJECT *m_pPhysicalDevice;
@@ -248,8 +248,8 @@ class VioGpuDod
     USHORT m_PersistentDispMode0Height;
 
   public:
-    VioGpuDod(_In_ DEVICE_OBJECT *pPhysicalDeviceObject);
-    ~VioGpuDod(void);
+    VioGpu(_In_ DEVICE_OBJECT *pPhysicalDeviceObject);
+    ~VioGpu(void);
 #pragma code_seg(push)
 #pragma code_seg()
     BOOLEAN IsDriverActive() const
