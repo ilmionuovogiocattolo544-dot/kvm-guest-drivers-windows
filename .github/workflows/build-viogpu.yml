@@ -40,6 +40,10 @@ jobs:
       shell: cmd
       run: |
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 VirtIO/VirtioLib.vcxproj || exit /b 1
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu/viogpures/viogpures.vcxproj || exit /b 1
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu/viogpusc/viogpusc.vcxproj || exit /b 1
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu/viogpuap/viogpuap.vcxproj || exit /b 1
+        findstr /n /i "InfVerif" "%ProgramFiles(x86)%\Windows Kits\10\build\10.0.26100.0\WindowsDriver.common.targets"
         msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpudo\viogpudo.vcxproj /p:RunInfVerif=false
 
     - name: Collect ONLY viogpu outputs
