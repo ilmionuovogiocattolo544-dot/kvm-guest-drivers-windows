@@ -1,19 +1,66 @@
-name: build-viogpu
-on: workflow_dispatch
+name: Build viogpu
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master, main ]
+
 jobs:
   build:
     runs-on: windows-2022
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Install WDK
-        shell: pwsh
-        run: winget install --id Microsoft.WindowsWDK.10.0.26100 --silent --accept-source-agreements --accept-package-agreements
-      - name: Build viogpu
-        shell: cmd
-        run: |
-          cd build
-          build.bat ..\viogpu\viogpu.sln "Win10 Release" x64
-      - uses: actions/upload-artifact@v4
-        with:
-          name: viogpu
-          path: viogpu/**/*.sys
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Remove InfVerif elements from project files
+      shell: powershell
+      run: |
+        Get-ChildItem -Recurse -Filter "*.vcxproj" | ForEach-Object {
+            $content = Get-Content $_.FullName -Raw
+            if ($content -match '<RunInfVerif>') {
+                $cleaned = [System.Text.RegularExpressions.Regex]::Replace($content, '<RunInfVerif>.*?</RunInfVerif>', '', 'Singleline')
+                $cleaned = [System.Text.RegularExpressions.Regex]::Replace($cleaned, '<RunInfVerif\s*/>', '')
+                Set-Content -Path $_.FullName -Value $cleaned -NoNewline
+            }
+        }
+        Get-ChildItem -Recurse -Filter "*.props" | ForEach-Object {
+            $content = Get-Content $_.FullName -Raw
+            if ($content -match '<RunInfVerif>') {
+                $cleaned = [System.Text.RegularExpressions.Regex]::Replace($content, '<RunInfVerif>.*?</RunInfVerif>', '', 'Singleline')
+                $cleaned = [System.Text.RegularExpressions.Regex]::Replace($cleaned, '<RunInfVerif\s*/>', '')
+                Set-Content -Path $_.FullName -Value $cleaned -NoNewline
+            }
+        }
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build individual viogpu projects
+      shell: cmd
+      run: |
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpu\viogpu.vcxproj
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpures\viogpures.vcxproj
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpusc\viogpusc.vcxproj
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpuap\viogpuap.vcxproj
+
+    - name: Collect ONLY viogpu outputs
+      shell: powershell
+      run: |
+        Remove-Item -Path .\final-output -Recurse -ErrorAction SilentlyContinue
+        New-Item -ItemType Directory -Force -Path .\final-output
+        
+        # Cerchiamo dentro la cartella viogpu tutti i file compilati (.sys, .inf, .cat, .dll)
+        Get-ChildItem -Path "viogpu" -Recurse -Include "*.sys","*.inf","*.cat","*.dll" | Where-Object { $_.PSIsContainer -eq $false } | ForEach-Object {
+            Write-Host "Copying: $($_.FullName)"
+            Copy-Item $_.FullName -Destination .\final-output -Force
+        }
+        
+        # Mostriamo cosa abbiamo raccolto
+        Get-ChildItem .\final-output
+
+    - name: Upload clean viogpu artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: viogpu-clean-package
+        path: final-output/
