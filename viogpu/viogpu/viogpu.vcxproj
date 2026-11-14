@@ -97,7 +97,7 @@
     <ALLOW_DATE_TIME>1</ALLOW_DATE_TIME>
     <DriverTargetPlatform>Universal</DriverTargetPlatform>
   </PropertyGroup>
-  <Import Project="$(MSBuildProjectDirectory)\viogpudo.props" />
+  <Import Project="$(MSBuildProjectDirectory)\viogpu.props" />
   <Import Project="$(MSBuildProjectDirectory)\..\..\build\Driver.Common.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
