@@ -3,7 +3,7 @@
 ;INX_COPYRIGHT_1
 ;INX_COPYRIGHT_2
 ;
-; viogpudo.inf
+; viogpu.inf
 ;
 ;Installation Notes:
 ;    Step by step driver installation wiki:
@@ -16,7 +16,7 @@ Class=Display
 ClassGUID={4d36e968-e325-11ce-bfc1-08002be10318}
 Provider=%VENDOR%
 DriverVer= 09/05/2018, 1.01.01.0001
-CatalogFile=viogpudo.cat
+CatalogFile=viogpu.cat
 PnpLockdown     = 1
 
 [DestinationDirs]
@@ -27,7 +27,7 @@ DefaultDestDir = INX_PLATFORM_DRIVERS_DIR
 1 = %DiskId1%,,,""
 
 [SourceDisksFiles]
-viogpudo.sys = 1,,
+viogpu.sys = 1,,
 
 
 [Manufacturer]
@@ -37,7 +37,7 @@ viogpudo.sys = 1,,
 %VioGpuDod.DeviceDesc% = VioGpuDod_Inst, PCI\VEN_1AF4&DEV_1050&SUBSYS_1100_INX_SUBSYS_VENDOR_ID&REV_01, PCI\VEN_1AF4&DEV_1050
 
 [VioGpuDod_Files_Driver]
-viogpudo.sys,,,2
+viogpu.sys,,,2
 
 [VioGpuDod_Inst]
 Include=msdv.inf
@@ -57,7 +57,7 @@ AddReg = VioGpuDod_PCI_MSIX
 ServiceType = %SERVICE_KERNEL_DRIVER%
 StartType = %SERVICE_DEMAND_START%
 ErrorControl = %SERVICE_ERROR_IGNORE%
-ServiceBinary = %INX_PLATFORM_DRIVERS_DIR%\viogpudo.sys
+ServiceBinary = %INX_PLATFORM_DRIVERS_DIR%\viogpu.sys
 
 [VioGpuDod_EventLog_Inst]
 AddReg = VioGpuDod_EventLog_Inst.AddReg

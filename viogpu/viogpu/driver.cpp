@@ -28,7 +28,7 @@
  */
 
 #include "driver.h"
-#include "viogpudo.h"
+#include "viogpu.h"
 #include "helper.h"
 #include "baseobj.h"
 

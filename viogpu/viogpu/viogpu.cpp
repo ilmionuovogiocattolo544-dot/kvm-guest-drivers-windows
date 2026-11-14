@@ -29,14 +29,14 @@
 
 #include "helper.h"
 #include "driver.h"
-#include "viogpudo.h"
+#include "viogpu.h"
 #include "baseobj.h"
 #include "bitops.h"
 #include "viogpum.h"
 #include "edid.h"
 
 #if !DBG
-#include "viogpudo.tmh"
+#include "viogpu.tmh"
 #endif
 
 static UINT g_InstanceId = 0;
