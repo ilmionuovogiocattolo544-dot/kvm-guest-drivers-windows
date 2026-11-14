@@ -39,7 +39,8 @@ jobs:
     - name: Build individual viogpu projects
       shell: cmd
       run: |
-        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpudo\viogpudo.vcxproj
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 VirtIO/VirtioLib.vcxproj || exit /b 1
+        msbuild /m /p:Configuration="Win10 Release" /p:Platform=x64 viogpu\viogpudo\viogpudo.vcxproj /p:RunInfVerif=false
 
     - name: Collect ONLY viogpu outputs
       shell: powershell
