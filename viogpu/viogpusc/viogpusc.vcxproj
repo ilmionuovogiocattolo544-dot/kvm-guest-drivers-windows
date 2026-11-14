@@ -27,7 +27,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <RunInfVerif>false</RunInfVerif>
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D572573A-7D73-404D-8DFA-7727278C242E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -36,7 +35,6 @@
     <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|Win32'" Label="Configuration">
-    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsUserModeDriver10.0</PlatformToolset>
@@ -46,7 +44,6 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|Win32'" Label="Configuration">
-    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsUserModeDriver10.0</PlatformToolset>
@@ -56,7 +53,6 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|ARM64'" Label="Configuration">
-    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsUserModeDriver10.0</PlatformToolset>
@@ -66,7 +62,6 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|ARM64'" Label="Configuration">
-    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsUserModeDriver10.0</PlatformToolset>
@@ -76,7 +71,6 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|x64'" Label="Configuration">
-    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsUserModeDriver10.0</PlatformToolset>
@@ -86,7 +80,6 @@
     <TargetVersion>Windows10</TargetVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|x64'" Label="Configuration">
-    <RunInfVerif>false</RunInfVerif>
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>WindowsUserModeDriver10.0</PlatformToolset>
@@ -120,44 +113,37 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-    <RunInfVerif>false</RunInfVerif>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|x64'">
-    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>objfre_win10_amd64\amd64\</OutDir>
     <IntDir>objfre_win10_amd64\amd64\</IntDir>
     <TargetName>vgpusrv</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|x64'">
-    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>objfre_win11_amd64\amd64\</OutDir>
     <IntDir>objfre_win11_amd64\amd64\</IntDir>
     <TargetName>vgpusrv</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|Win32'">
-    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>objfre_win10_x86\i386\</OutDir>
     <IntDir>objfre_win10_x86\i386\</IntDir>
     <TargetName>vgpusrv</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|Win32'">
-    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>objfre_win11_x86\i386\</OutDir>
     <IntDir>objfre_win11_x86\i386\</IntDir>
     <TargetName>vgpusrv</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win10 Release|ARM64'">
-    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>objfre_win10_arm64\arm64\</OutDir>
     <IntDir>objfre_win10_arm64\arm64\</IntDir>
     <TargetName>vgpusrv</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win11 Release|ARM64'">
-    <RunInfVerif>false</RunInfVerif>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>objfre_win11_arm64\arm64\</OutDir>
     <IntDir>objfre_win11_arm64\arm64\</IntDir>
